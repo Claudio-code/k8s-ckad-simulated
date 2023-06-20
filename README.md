@@ -4,6 +4,10 @@
 
 
 ```bash
+
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+
 export KUBE_EDITOR=nano
 
 alias la='ls -A'
