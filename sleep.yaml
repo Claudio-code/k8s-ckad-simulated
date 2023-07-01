@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: sleep
+  name: sleep
+spec:
+  containers:
+  - args:
+    - sleep
+    - "1000"
+    image: busybox
+    name: sleep
+    resources: {}
+    env:
+    - name: sleep
+      value: "rapidao"
+    - name: with
+      value: "notraking"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
