@@ -84,3 +84,45 @@ k explain pod.spec.containers
 k explain pod.spec.containers --recursive
 
 ```
+
+### Force delete pod
+
+```bash
+k delete po my-pod nginx sleep --force --grace-period 0
+```
+
+### Create deployment more fast
+
+```bash
+k create deployment nginx --image nginx -o yaml --dry-run=client > replica-set-two.yaml
+```
+
+### How edit deployment when it is running
+
+```bash
+k edit deployments.app first-deploy
+## OR
+k edit deploy first-deploy
+```
+
+### How set scale in deployment running
+
+```bash
+k scale deployment --replica 6 first-deploy
+## OR
+k scale deploy --replica 1 first-deploy 
+```
+### How see all changes in deployment
+
+```bash
+k rollout history deployment first-deploy
+## OR
+k rollout history deploy first-deploy
+```
+
+### Make rollback to previous version
+
+```bash
+k rollout undo --to-revision 1 deploy first-deploy
+```
+
