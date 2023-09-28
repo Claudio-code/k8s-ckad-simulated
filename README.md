@@ -5,10 +5,10 @@
 
 ```bash
 
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+
 autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
-
-echo "source <(kubectl completion bash)" >> ~/.bashrc
 
 export KUBE_EDITOR=nano
 
