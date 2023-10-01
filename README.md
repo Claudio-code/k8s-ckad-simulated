@@ -126,6 +126,11 @@ k rollout history deploy first-deploy
 k rollout undo --to-revision 1 deploy first-deploy
 ```
 
+### Generate manifest of pod
+```bash
+k run nginx --image nginx --dry-run=client -o yaml > pod-pvc.yaml
+```
+
 ---
 
 ## PersistentVolume
