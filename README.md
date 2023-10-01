@@ -133,6 +133,101 @@ k run nginx --image nginx --dry-run=client -o yaml > pod-pvc.yaml
 
 ---
 
+## PersistentVolumeClaim
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-first
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+### PersistentVolumeClaim to test
+
+> spec
+
+#### accessModes:
+
+```yaml
+accessModes:
+- [ReadWriteOnce | ReadOnlyMany | ReadWriteMany]
+```
+
+- ReadWriteOnce: The volume can mount with read and write by only node.
+- ReadOnlyMany: The volume can mount only read to many nodes.
+- ReadWriteMany: The volume can mount with read and write to many nodes.
+
+#### class:
+
+> Determine which will be the storageClass to PV will use.
+
+```yaml
+storageClassName: "Slow"
+```
+
+#### resources:
+> Like pods can solicit specifics quantities of one resource. the solicitation is to storage.
+
+```yaml
+resources:
+  requests:
+    storage: 9Gi
+```
+
+#### volumeName:
+> Force the use specific PV
+```yaml
+volumeName: firstPV
+```
+
+#### selector:
+> The PVCS can specific one "label selector" to filter further process to one PV
+
+```yaml
+selector: # [matchLabels | matchExpressions]
+  matchLabels:
+    release: "dev"
+  mathExpression:
+    - {key: enviroment, operator: In, values: [dev]}
+```
+
+- matchLabels: The volume must have one label with it value.
+- matchExpressions: One list of requirements made specific key, list of values and operator to relate key and operator. The operators valid include in, notIn, Exists and DoesNotExists.
+
+
+#### Example in pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+  namespace: day1
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    volumeMounts:
+    - name: usingpvc
+      mountPath: /data
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: usingpvc
+    persistentVolumeClaim:
+      claimName: pvc-first
+```
+
+---
+
 ## PersistentVolume
 
 ```yaml
