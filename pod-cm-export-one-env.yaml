@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: first-cm
+data:
+  ip: "10.2.1.2"
+  server: "web"
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    env:
+    - name: MYIP
+      valueFrom:
+        configMapKeyRef:
+          name: first-cm
+          key: ip
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
