@@ -299,3 +299,12 @@ hostPath:
 
 - FileOrCreate: If nothing exist in path provided, one file empty will be created there as need with permission like 0644, having the same group and properties of kubelet. 
 - DirectoryOrCreate: If no exist in path provided, one directory empty will be created there as need with defined permission like 0755, having the same group and property of kubelet.
+
+
+## ConfigMap and Secrets
+
+### How fast create configMap 
+
+```yaml
+k create configmap second-cm --from-literal=ip=22.2.2.22 --from-literal=server=web --dry-run=client -o yaml
+```
