@@ -307,4 +307,37 @@ hostPath:
 
 ```yaml
 k create configmap second-cm --from-literal=ip=22.2.2.22 --from-literal=server=web --dry-run=client -o yaml
+## Secret
+
+Secret encode all values in base64 you can test it encode using it command:
+
+Encode:
+
+```bash
+  echo -n "senha" | base64
+```
+
+Decode:
+
+```bash
+  echo -n "dXNlcg==" | base64 -d
+```
+
+### Create secret from file
+
+```bash
+k create secret generic my-secret --from-file=./secrets.txt --from-file=./another-secrets.txt
+```
+
+### Create secret literal
+```bash
+k create secret generic my-secret --from-literal=user=admin --from-literal=pass=mysecretpass
+```
+
+### Create secret to docker register
+```bash
+k create secret docker-registry my-docker \
+  --docker-username=admin \
+  --docker-password=pass123 \
+  --docker-email=admin@soneca.corp.com
 ```
