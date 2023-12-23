@@ -22,12 +22,31 @@ alias kgp='kubectl get pod'
 alias kd='kubectl describe'
 export d="--dry-run=client -o yaml"
 
+
+## Config nano
 nano .nanorc
 
 set tabsize 2
 set tabstospaces
 
+## Config vim
+
+vim .vimrc
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+syntax on
+
 ```
+### Filter outputs in when get infos of kubectl
+
+```bash
+
+k get pods -o=name > /tmp/pods
+
+```
+
 
 ### Force delete/replace pod
 
@@ -54,6 +73,22 @@ k run nginx --image nginx --port 80 --dry-run=client -o yaml > manifest-pod.yaml
 ```bash
 
 k get po pod-name -o yaml
+
+```
+
+### Delete all pods
+
+```bash
+
+k delete --all pods
+
+# OR
+
+k delete --all po
+
+# OR OF SPECIFIC NAMESPACE
+
+k delete --all po --namespace=default
 
 ```
 
