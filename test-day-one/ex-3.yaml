@@ -3,13 +3,19 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    run: ex-1
-  name: ex-1
+    run: ex-3
+  name: ex-3
 spec:
   containers:
   - image: nginx
-    name: ex-1
+    name: ex-3
     resources: {}
+    ports:
+    - containerPort: 80
+  - image: redis
+    name: redis
+    ports:
+    - containerPort: 6379
   dnsPolicy: ClusterFirst
   restartPolicy: Always
 status: {}
