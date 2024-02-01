@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ex-30
+  name: ex-30
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ex-30
+  template:
+    metadata:
+      labels:
+        app: ex-30
+    spec:
+      containers:
+      - image: nginx
+        name: web
+        ports:
+        - containerPort: 80
+      - image: busybox
+        name: sleep
+        command: ["sleep", "3600"]
+

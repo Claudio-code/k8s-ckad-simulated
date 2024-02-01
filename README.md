@@ -60,6 +60,12 @@ k replace -f ./manifest.yaml --force --grace-period 0
 
 ```
 
+### Create deployment and generate manifest
+
+```bash
+
+```
+
 ### Create pod and generate manifest
 
 ```bash
