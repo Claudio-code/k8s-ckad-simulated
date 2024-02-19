@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  ip: 10.0.0.1
+  server: nginx
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-02-06T11:45:08Z"
+  name: ex-32
+  namespace: default
+  resourceVersion: "56662"
+  uid: 64b9ce67-be54-4b7e-a4e7-321d0b27d0f3
