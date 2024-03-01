@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-nginx3
+spec:
+  podSelector:
+    matchLabels:
+      run: nginx3
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          run: nginx
+    ports:
+    - protocol: TCP
+      port: 80
