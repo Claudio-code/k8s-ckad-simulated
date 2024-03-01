@@ -63,7 +63,7 @@ k replace -f ./manifest.yaml --force --grace-period 0
 ### Create deployment and generate manifest
 
 ```bash
-
+k create deployment firstdeploy --image=nginx --dry-run=client -o yaml > firstdeploy.yaml
 ```
 
 ### Create pod and generate manifest
@@ -72,6 +72,13 @@ k replace -f ./manifest.yaml --force --grace-period 0
 
 k run nginx --image nginx --port 80 --dry-run=client -o yaml > manifest-pod.yaml
 
+```
+
+
+### Pass command to execute in pod
+
+```bash
+k exec -it second-pod -- curl 10.42.0.2
 ```
 
 ### Get info of pod and print manifest in terminal
