@@ -74,6 +74,11 @@ k run nginx --image nginx --port 80 --dry-run=client -o yaml > manifest-pod.yaml
 
 ```
 
+### Create service in command line
+
+```bash
+k expose pod pod-name --target-port 80 --port 80
+```
 
 ### Pass command to execute in pod
 
