@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: ingress-nginx3
+  name: egress-pod-c
 spec:
   podSelector:
     matchLabels:
       run: pod-c
   policyTypes:
-  - Ingress
-  ingress:
-  - from:
+  - Egress
+  egress:
+  - to:
     - podSelector:
         matchLabels:
           run: pod-a
