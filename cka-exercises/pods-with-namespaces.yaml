@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: full-access
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-a
+  name: pod-a
+spec:
+  containers:
+  - image: nginx
+    name: pod-a
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-b
+  name: pod-b
+spec:
+  containers:
+  - image: nginx
+    name: pod-b
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-c
+  name: pod-c
+spec:
+  containers:
+  - image: nginx
+    name: pod-c
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: full-pod-a
+  name: full-pod-a
+  namespace: full-access
+spec:
+  containers:
+  - image: nginx
+    name: full-pod-a
+  restartPolicy:
+---
+apiVersion: v1
+Kind: Pod
+metadata:
+  labels:
+    run: full-pod-b
+  name: full-pod-b
+  namespace: full-access
+spec:
+  containers:
+  - image: nginx
+    name: full-pod-b
+  restartPolicy: Always
+

@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: first-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /foo
+        pathType: Prefix
+        backend:
+          service:
+            name: foo-nginx
+            port:
+              number: 80
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: foo-nginx
+  name: foo-nginx
+spec:
+  containers:
+  - image: nginx
+    name: foo-nginx
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: foo-nginx
+  name: foo-nginx
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: foo-nginx
+  type: ClusterIP
+
