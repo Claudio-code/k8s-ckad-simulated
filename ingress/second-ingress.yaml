@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: second-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /bar
+        pathType: Prefix
+        backend:
+          service:
+            name: bar-httpd
+            port:
+              number: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: bar-httpd
+  name: bar-httpd
+spec:
+  containers:
+  - image: httpd
+    name: bar-httpd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: bar-httpd
+  name: bar-httpd
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: bar-httpd
+  type: ClusterIP
