@@ -2,7 +2,6 @@
 
 ### Change k8s editor to nano
 
-
 ```bash
 
 echo "source <(kubectl completion bash)" >> ~/.bashrc
@@ -39,6 +38,17 @@ set shiftwidth=2
 syntax on
 
 ```
+
+### Create Ingress in kubectl command line
+
+```bash
+## ingress by path
+k create ingress ingress2 --class nginx --rule="/foo=foo-nginx:80" --dry-run=client -o yaml
+
+## ingress by host
+k create ingress ingress2 --class nginx --rule="foo.possuidao.xyy/foo=foo-nginx:80" --dry-run=client -o yaml
+```
+
 ### Filter outputs in when get infos of kubectl
 
 ```bash
@@ -46,7 +56,6 @@ syntax on
 k get pods -o=name > /tmp/pods
 
 ```
-
 
 ### Force delete/replace pod
 
@@ -163,8 +172,9 @@ k edit deploy first-deploy
 ```bash
 k scale deployment --replica 6 first-deploy
 ## OR
-k scale deploy --replica 1 first-deploy 
+k scale deploy --replica 1 first-deploy
 ```
+
 ### How see all changes in deployment
 
 ```bash
@@ -180,6 +190,7 @@ k rollout undo --to-revision 1 deploy first-deploy
 ```
 
 ### Generate manifest of pod
+
 ```bash
 k run nginx --image nginx --dry-run=client -o yaml > pod-pvc.yaml
 ```
@@ -195,7 +206,7 @@ metadata:
   name: pvc-first
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -209,7 +220,7 @@ spec:
 
 ```yaml
 accessModes:
-- [ReadWriteOnce | ReadOnlyMany | ReadWriteMany]
+  - [ReadWriteOnce | ReadOnlyMany | ReadWriteMany]
 ```
 
 - ReadWriteOnce: The volume can mount with read and write by only node.
@@ -225,6 +236,7 @@ storageClassName: "Slow"
 ```
 
 #### resources:
+
 > Like pods can solicit specifics quantities of one resource. the solicitation is to storage.
 
 ```yaml
@@ -234,12 +246,15 @@ resources:
 ```
 
 #### volumeName:
+
 > Force the use specific PV
+
 ```yaml
 volumeName: firstPV
 ```
 
 #### selector:
+
 > The PVCS can specific one "label selector" to filter further process to one PV
 
 ```yaml
@@ -247,12 +262,11 @@ selector: # [matchLabels | matchExpressions]
   matchLabels:
     release: "dev"
   mathExpression:
-    - {key: enviroment, operator: In, values: [dev]}
+    - { key: enviroment, operator: In, values: [dev] }
 ```
 
 - matchLabels: The volume must have one label with it value.
 - matchExpressions: One list of requirements made specific key, list of values and operator to relate key and operator. The operators valid include in, notIn, Exists and DoesNotExists.
-
 
 #### Example in pod
 
@@ -266,17 +280,17 @@ metadata:
   namespace: day1
 spec:
   containers:
-  - image: nginx
-    name: nginx
-    volumeMounts:
-    - name: usingpvc
-      mountPath: /data
+    - image: nginx
+      name: nginx
+      volumeMounts:
+        - name: usingpvc
+          mountPath: /data
   dnsPolicy: ClusterFirst
   restartPolicy: Always
   volumes:
-  - name: usingpvc
-    persistentVolumeClaim:
-      claimName: pvc-first
+    - name: usingpvc
+      persistentVolumeClaim:
+        claimName: pvc-first
 ```
 
 ---
@@ -303,6 +317,7 @@ spec:
 > spec
 
 #### Capacity:
+
 Specific storage size of persistence volume ( Gi Mi )
 
 ```yaml
@@ -328,37 +343,43 @@ accessMode:
 - ReadWriteMany: The volume could it be mounted with read and write to many nodes.
 
 #### Reclaim Policy
+
 > It option has the objective the action that the cluster will make after exclude PVC.
+
 ```yaml
 persistentVolumeReclaimPolicy: [Retain | Recycle | Delete]
 ```
+
 - Retain: Need one manual action.
-- Recycle: basic (rm -rf /volumeDir/*).
-- Delete: Using AWS EBS, GCE PD, Azure Disk or OpenStack Cinder the volume as deleted. 
+- Recycle: basic (rm -rf /volumeDir/\*).
+- Delete: Using AWS EBS, GCE PD, Azure Disk or OpenStack Cinder the volume as deleted.
 
 #### Class
+
 > Determine which will be the storageClass to PV will use.
 
 ```yaml
 storageClassName: "Slow"
 ```
+
 #### HostPath:
+
 > One volume hostPath mount one file or directory of filesystem of node of host in your pod.
+
 ```yaml
 hostPath:
   path:
   type: [FileOrCreate | DirectoryOrCreate]
 ```
 
-- FileOrCreate: If nothing exist in path provided, one file empty will be created there as need with permission like 0644, having the same group and properties of kubelet. 
+- FileOrCreate: If nothing exist in path provided, one file empty will be created there as need with permission like 0644, having the same group and properties of kubelet.
 - DirectoryOrCreate: If no exist in path provided, one directory empty will be created there as need with defined permission like 0755, having the same group and property of kubelet.
-
 
 ## ConfigMap and Secrets
 
-### How fast create configMap 
+### How fast create configMap
 
-```yaml
+````yaml
 k create configmap second-cm --from-literal=ip=22.2.2.22 --from-literal=server=web --dry-run=client -o yaml
 ## Secret
 
@@ -368,7 +389,7 @@ Encode:
 
 ```bash
   echo -n "senha" | base64
-```
+````
 
 Decode:
 
@@ -383,11 +404,13 @@ k create secret generic my-secret --from-file=./secrets.txt --from-file=./anothe
 ```
 
 ### Create secret literal
+
 ```bash
 k create secret generic my-secret --from-literal=user=admin --from-literal=pass=mysecretpass
 ```
 
 ### Create secret to docker register
+
 ```bash
 k create secret docker-registry my-docker \
   --docker-username=admin \

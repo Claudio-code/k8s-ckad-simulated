@@ -12,15 +12,17 @@ spec:
         number: 80
   ingressClassName: nginx
   rules:
-  - http:
+  - host: "foo.p0ssuidao.xyz"
+    http:
       paths:
-      - path: /foo
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: foo-nginx
             port:
               number: 80
+
 
 ---
 
