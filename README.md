@@ -55,6 +55,14 @@ kubectl create clusterrole readerTwo --verb get, watch, list --resource secrets 
 
 ```bash
 kubectl create sa reader --dry-run=client -o yaml
+### Create Ingress in kubectl command line
+
+```bash
+## ingress by path
+k create ingress ingress2 --class nginx --rule="/foo=foo-nginx:80" --dry-run=client -o yaml
+
+## ingress by host
+k create ingress ingress2 --class nginx --rule="foo.possuidao.xyy/foo=foo-nginx:80" --dry-run=client -o yaml
 ```
 
 ### Filter outputs in when get infos of kubectl
