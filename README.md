@@ -36,7 +36,12 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 syntax on
+```
 
+### Command to verify if user was permission in many different resources in k8s
+
+```bash
+kubectl auth can-i get secrets --as system:serviceaccount:default:reader
 ```
 
 ### Create Role with command
