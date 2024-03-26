@@ -237,7 +237,7 @@ spec:
 
 > spec
 
-#### accessModes:
+#### accessModes
 
 ```yaml
 accessModes:
@@ -248,7 +248,7 @@ accessModes:
 - ReadOnlyMany: The volume can mount only read to many nodes.
 - ReadWriteMany: The volume can mount with read and write to many nodes.
 
-#### class:
+#### class
 
 > Determine which will be the storageClass to PV will use.
 
@@ -256,7 +256,7 @@ accessModes:
 storageClassName: "Slow"
 ```
 
-#### resources:
+#### resources
 
 > Like pods can solicit specifics quantities of one resource. the solicitation is to storage.
 
@@ -266,7 +266,7 @@ resources:
     storage: 9Gi
 ```
 
-#### volumeName:
+#### volumeName
 
 > Force the use specific PV
 
@@ -274,7 +274,7 @@ resources:
 volumeName: firstPV
 ```
 
-#### selector:
+#### selector
 
 > The PVCS can specific one "label selector" to filter further process to one PV
 
@@ -337,7 +337,7 @@ spec:
 
 > spec
 
-#### Capacity:
+#### Capacity
 
 Specific storage size of persistence volume ( Gi Mi )
 
@@ -346,13 +346,13 @@ capacity:
   storage: 1Gi
 ```
 
-#### VolumeMode:
+#### VolumeMode
 
 ```yaml
 volumeMode: [Filesystem | Block]
 ```
 
-#### AccessMode:
+#### AccessMode
 
 ```yaml
 accessMode:
@@ -383,7 +383,7 @@ persistentVolumeReclaimPolicy: [Retain | Recycle | Delete]
 storageClassName: "Slow"
 ```
 
-#### HostPath:
+#### HostPath
 
 > One volume hostPath mount one file or directory of filesystem of node of host in your pod.
 
