@@ -38,6 +38,12 @@ set shiftwidth=2
 syntax on
 ```
 
+### Command to create resource quota in kubectl
+
+```bash
+kubectl create quota quota2 --hard pod=2,cpu=2,memory=1Gi --dry-run=client -o yaml
+```
+
 ### Command to found resource using api-resource in kubectl
 
 ```bash
