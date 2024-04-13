@@ -38,6 +38,12 @@ set shiftwidth=2
 syntax on
 ```
 
+### Command to found resource using api-resource in kubectl
+
+```bash
+kubectl api-resources -o wide | grep <resource-name>
+```
+
 ### Command to verify if user was permission in many different resources in k8s
 
 ```bash
