@@ -38,6 +38,12 @@ set shiftwidth=2
 syntax on
 ```
 
+### Command to create cronjob with command
+```bash
+kubectl create cronjob --image=ubuntu --schedule="* * * * *" --dry-run=client -o yaml > my-file.yaml
+```
+
+
 ### Command to create resource quota in kubectl
 
 ```bash

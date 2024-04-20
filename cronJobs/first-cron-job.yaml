@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-cron-job
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: my-cron-job
+            image: ubuntu
+            command: ["/bin/sh", "-c", "echo my cron job"]
+          restartPolicy: OnFailure
