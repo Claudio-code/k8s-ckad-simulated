@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ex-3-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ex-3-pvc
+spec:
+  dataSource:
+    name: ex-3-pv
+    kind: PersistentVolume
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: ex-3-pod
+  name: ex-3-pod
+spec:
+  containers:
+  - image: nginx
+    name: ex-3-pod
+    volumeMounts:
+    - name: using-ex-3-pvc
+      mountPath: /data
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: using-ex-3-pvc
+    persistentVolumeClaim:
+      claimName: ex-3-pvc
