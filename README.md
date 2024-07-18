@@ -33,6 +33,7 @@ set tabstospaces
 vim .vimrc
 
 set expandtab
+set autochdir
 set tabstop=2
 set shiftwidth=2
 syntax on
